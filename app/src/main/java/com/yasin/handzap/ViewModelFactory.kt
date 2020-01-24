@@ -14,6 +14,7 @@ import javax.inject.Provider
  * If any doubts look here :  https://www.techyourchance.com/dependency-injection-viewmodel-with-dagger-2/
  */
 
+@Suppress("UNCHECKED_CAST")
 @ApplicationScope
 class ViewModelFactory @Inject
 constructor(private val viewModelProviderMap: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>) : ViewModelProvider.Factory {

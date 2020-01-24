@@ -42,4 +42,7 @@ dependencies {
     //Room
     implementation "androidx.room:room-runtime:${library.room_version}"
     kapt "androidx.room:room-compiler:${library.room_version}"
+    //Navigation
+    implementation "android.arch.navigation:navigation-fragment-ktx:${library.navigation}"
+    implementation "android.arch.navigation:navigation-ui-ktx:${library.navigation}"
 }

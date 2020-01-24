@@ -19,7 +19,8 @@ buildscript {
             'lifeCycle'         : '2.1.0',
             'room_version'      : '2.2.3',
             'dagger'            : '2.25.4',
-            'material'          : '1.2.0-alpha03'
+            'material'          : '1.2.0-alpha03',
+            'navigation'        : '1.0.0'
     ]
     repositories {
         google()

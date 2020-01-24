@@ -23,7 +23,7 @@ class FormListActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        tv.text = formListViewModel.getForms()
+
     }
 
     private fun configureViewModel() {
