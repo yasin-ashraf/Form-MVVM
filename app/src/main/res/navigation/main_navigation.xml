@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navigation"
+    android:label="Form Listing"
+    app:startDestination="@id/formListFragment">
 
+    <fragment
+        android:id="@+id/formListFragment"
+        android:name="com.yasin.handzap.ui.formList.FormListFragment"
+        android:label="Form Listing" >
+        <action
+            android:id="@+id/action_formListFragment_to_newFormFragment2"
+            app:destination="@id/newFormFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/formListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newFormFragment"
+        android:name="com.yasin.handzap.ui.newForm.NewFormFragment"
+        android:label="New Form" />
 </navigation>

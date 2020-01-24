@@ -6,6 +6,7 @@ import com.yasin.handzap.dagger.modules.DatabaseModule
 import com.yasin.handzap.dagger.modules.ViewModelModule
 import com.yasin.handzap.dagger.scopes.ApplicationScope
 import com.yasin.handzap.ui.formList.FormListActivity
+import com.yasin.handzap.ui.formList.FormListFragment
 import dagger.Component
 
 /**
@@ -15,5 +16,5 @@ import dagger.Component
 @Component(modules = [ContextModule::class,ApplicationModule::class,DatabaseModule::class,ViewModelModule::class])
 interface MainComponent {
 
-    fun injectFormListActivity(formListActivity: FormListActivity)
+    fun injectFormListFragment(formListFragment: FormListFragment)
 }

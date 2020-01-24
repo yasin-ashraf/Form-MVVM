@@ -2,31 +2,27 @@ package com.yasin.handzap.ui.formList
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import com.yasin.handzap.Handzap
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.yasin.handzap.R
-import kotlinx.android.synthetic.main.activity_main.*
-import javax.inject.Inject
 
 class FormListActivity : AppCompatActivity() {
 
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var formListViewModel: FormListViewModel
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Handzap.getApp(this).mainComponent?.injectFormListActivity(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        configureViewModel()
         init()
     }
 
     private fun init() {
-
+        navController = this.findNavController(R.id.navHostFragment)
+        NavigationUI.setupActionBarWithNavController(this,navController)
     }
 
-    private fun configureViewModel() {
-        formListViewModel = ViewModelProviders.of(this,viewModelFactory).get(FormListViewModel::class.java)
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp()
     }
 }

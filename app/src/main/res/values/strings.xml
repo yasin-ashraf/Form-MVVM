@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Handzap</string>
+    <string name="action_add_form">Add Form</string>
 </resources>
