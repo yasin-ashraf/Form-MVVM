@@ -1,6 +1,7 @@
 package com.yasin.handzap.ui.formList
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -10,6 +11,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.yasin.handzap.Handzap
 import com.yasin.handzap.R
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_form_list.*
 import javax.inject.Inject
 
@@ -21,6 +25,7 @@ class FormListFragment : Fragment() {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var formsViewModel: FormsViewModel
     private val formListAdapter : FormListAdapter by lazy { FormListAdapter() }
+    private lateinit var disposable : Disposable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Handzap.getApp(requireContext()).mainComponent?.injectFormListFragment(this)
@@ -32,6 +37,7 @@ class FormListFragment : Fragment() {
     private fun attachFormListObserver() {
         formsViewModel.getForms().observe(this, Observer {
             if(it.isEmpty()) {
+                formListAdapter.submitList(listOf())
                 empty_string.visibility = View.VISIBLE
             }else {
                 empty_string.visibility = View.INVISIBLE
@@ -61,6 +67,15 @@ class FormListFragment : Fragment() {
     private fun init() {
         rv_forms.setHasFixedSize(true)
         rv_forms.adapter = formListAdapter
+        disposable = formListAdapter.clickObserver
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    formsViewModel.deleteForm(it.first)
+                },{
+                    Log.e("CLICK_OBSERVER",it.toString())
+                }
+            )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -71,5 +86,10 @@ class FormListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item,view!!.findNavController())
                 || super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        disposable.dispose()
     }
 }

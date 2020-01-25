@@ -17,4 +17,8 @@ class FormsViewModel @Inject constructor(private val formsRepository : FormsRepo
 
     fun getForms() = forms
 
+    fun deleteForm (id : String) {
+        formsRepository.deleteForm(id)
+    }
+
 }

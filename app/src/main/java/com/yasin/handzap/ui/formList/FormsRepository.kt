@@ -1,10 +1,8 @@
 package com.yasin.handzap.ui.formList
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.yasin.handzap.data.dao.FormsDao
 import com.yasin.handzap.data.entity.Form
-import com.yasin.handzap.ui.ViewState
 import java.util.concurrent.Executor
 import javax.inject.Inject
 import kotlin.random.Random
@@ -33,6 +31,12 @@ class FormsRepository @Inject constructor(private val executor: Executor,
         )
         executor.execute {
             formsDao.saveForm(form = newForm)
+        }
+    }
+
+    fun deleteForm (id : String) {
+        executor.execute {
+            formsDao.deleteFOrm(id)
         }
     }
 
