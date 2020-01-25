@@ -4,4 +4,5 @@
     <string name="action_invite">Invite</string>
     <string name="action_inbox">Inbox</string>
     <string name="label_no_forms">No forms to show up!</string>
+    <string name="action_delete_form">Delete Form</string>
 </resources>

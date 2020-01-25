@@ -8,12 +8,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.yasin.handzap.Handzap
 import com.yasin.handzap.R
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_form_list.*
 import javax.inject.Inject
 
@@ -67,13 +67,18 @@ class FormListFragment : Fragment() {
     private fun init() {
         rv_forms.setHasFixedSize(true)
         rv_forms.adapter = formListAdapter
+        observeOptionsClick()
+    }
+
+    private fun observeOptionsClick() {
         disposable = formListAdapter.clickObserver
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    formsViewModel.deleteForm(it.first)
-                },{
-                    Log.e("CLICK_OBSERVER",it.toString())
+                    formsViewModel.setDeleteItemId(it.first)
+                    findNavController().navigate(R.id.action_formListFragment_to_deleteFormBottomSheet)
+                }, {
+                    Log.e("Click_Observer_Error", it.toString())
                 }
             )
     }

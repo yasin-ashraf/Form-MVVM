@@ -14,11 +14,16 @@ import javax.inject.Inject
 class FormsViewModel @Inject constructor(private val formsRepository : FormsRepository) : ViewModel(){
 
     private val forms : LiveData<List<Form>> = formsRepository.loadForms()
+    private val deleteItemId : MutableLiveData<String> = MutableLiveData()
 
     fun getForms() = forms
 
-    fun deleteForm (id : String) {
-        formsRepository.deleteForm(id)
+    fun deleteForm () {
+        formsRepository.deleteForm(deleteItemId.value ?: return)
+    }
+
+    fun setDeleteItemId(id : String) {
+        deleteItemId.value = id
     }
 
 }

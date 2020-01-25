@@ -20,7 +20,7 @@ buildscript {
             'room_version'      : '2.2.3',
             'dagger'            : '2.25.4',
             'material'          : '1.2.0-alpha03',
-            'navigation'        : '1.0.0'
+            'navigation'        : '2.2.0'
     ]
     repositories {
         google()

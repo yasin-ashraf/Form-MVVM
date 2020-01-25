@@ -16,9 +16,17 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@+id/formListFragment" />
+        <action
+            android:id="@+id/action_formListFragment_to_deleteFormBottomSheet"
+            app:destination="@id/deleteFormBottomSheet2"
+            app:popUpTo="@+id/formListFragment" />
     </fragment>
     <fragment
         android:id="@+id/newFormFragment"
         android:name="com.yasin.handzap.ui.newForm.NewFormFragment"
         android:label="New Form" />
+    <dialog
+        android:id="@+id/deleteFormBottomSheet2"
+        android:name="com.yasin.handzap.ui.formList.DeleteFormBottomSheet"
+        android:label="DeleteFormBottomSheet" />
 </navigation>
