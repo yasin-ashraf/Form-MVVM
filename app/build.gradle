@@ -32,7 +32,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    // Lifecycle
+    //Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:${library.lifeCycle}"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:${library.lifeCycle}"
     //Dagger
@@ -45,4 +45,6 @@ dependencies {
     //Navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:${library.navigation}"
     implementation "android.arch.navigation:navigation-ui-ktx:${library.navigation}"
+    //
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 }
