@@ -21,5 +21,5 @@ data class Form(
     val paymentMethod : String?,
     val startDate : String?,
     val jobTerm : String?,
-    val attachedFiles : List<Uri>
+    val attachedFiles : List<Uri>?
 )

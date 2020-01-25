@@ -5,14 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.yasin.handzap.Handzap
 import com.yasin.handzap.R
+import com.yasin.handzap.ViewModelFactory
+import javax.inject.Inject
 
 /**
  * Created by Yasin on 24/1/20.
  */
 class NewFormFragment : Fragment(){
 
+    @Inject lateinit var factory: ViewModelFactory
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        Handzap.getApp(requireContext()).mainComponent?.injectNewFormFragment(this)
         super.onCreate(savedInstanceState)
     }
 

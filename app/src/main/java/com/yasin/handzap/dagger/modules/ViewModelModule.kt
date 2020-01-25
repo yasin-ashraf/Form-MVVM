@@ -3,7 +3,8 @@ package com.yasin.handzap.dagger.modules
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yasin.handzap.ViewModelFactory
-import com.yasin.handzap.ui.formList.FormListViewModel
+import com.yasin.handzap.ui.formList.FormsViewModel
+import com.yasin.handzap.ui.newForm.NewFormViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -19,6 +20,11 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(FormListViewModel::class)
-    abstract fun bindFormListViewModel(formListViewModel: FormListViewModel) : ViewModel
+    @ViewModelKey(FormsViewModel::class)
+    abstract fun bindFormListViewModel(formsViewModel: FormsViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NewFormViewModel::class)
+    abstract fun bindNewFormViewModel(formsViewModel: FormsViewModel) : ViewModel
 }
