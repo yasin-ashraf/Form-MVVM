@@ -5,4 +5,7 @@
     <string name="action_inbox">Inbox</string>
     <string name="label_no_forms">No forms to show up!</string>
     <string name="action_delete_form">Delete Form</string>
+    <string name="label_form_title">Form Title</string>
+    <string name="action_send">Send</string>
+    <string name="label_form_description">Form Description</string>
 </resources>

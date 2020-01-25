@@ -1,15 +1,13 @@
 package com.yasin.handzap.ui.newForm
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.yasin.handzap.Handzap
 import com.yasin.handzap.R
 import com.yasin.handzap.ViewModelFactory
-import kotlinx.android.synthetic.main.fragment_create_new_form.*
 import javax.inject.Inject
 
 /**
@@ -40,8 +38,20 @@ class NewFormFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        add_new_form.setOnClickListener {
-            formViewModel.createNewForm()
-        }
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.options_new_form,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        validateFields()
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun validateFields() {
+        Toast.makeText(requireContext(),"Clicked Send",Toast.LENGTH_SHORT).show()
     }
 }
