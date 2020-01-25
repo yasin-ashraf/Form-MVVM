@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class Form(
     @PrimaryKey
-    val id : String?,
+    val id : String,
     val title : String?,
     val date : String?,
     val views : Int = 0,

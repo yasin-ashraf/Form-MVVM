@@ -19,7 +19,7 @@ class DatabaseModule {
 
     @Provides
     @ApplicationScope
-    fun provideDatabase(@ApplicationContext context: Context) : RoomDatabase {
+    fun provideDatabase(context: Context) : HandzapDatabase {
         return Room.databaseBuilder(context,HandzapDatabase::class.java, DATABASE_NAME)
             .build()
     }

@@ -13,16 +13,8 @@ import javax.inject.Inject
  */
 class FormsViewModel @Inject constructor(private val formsRepository : FormsRepository) : ViewModel(){
 
-    private val refresh : MutableLiveData<String> = MutableLiveData()
-    val forms : LiveData<ViewState<List<Form>>> = Transformations.map(formsRepository.getForms()) {
-        manageViewState(it)
-    }
+    private val forms : LiveData<List<Form>> = formsRepository.loadForms()
 
-    private fun manageViewState(it: List<Form>): ViewState<List<Form>>? {
-        return if(it.isEmpty()){
-            ViewState.EmptyList
-        }else {
-            ViewState.Success(it)
-        }
-    }
+    fun getForms() = forms
+
 }

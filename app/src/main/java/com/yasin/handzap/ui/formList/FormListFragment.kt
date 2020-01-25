@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.yasin.handzap.Handzap
 import com.yasin.handzap.R
-import com.yasin.handzap.ui.ViewState
+import kotlinx.android.synthetic.main.fragment_form_list.*
 import javax.inject.Inject
 
 /**
@@ -20,6 +20,7 @@ class FormListFragment : Fragment() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var formsViewModel: FormsViewModel
+    private val formListAdapter : FormListAdapter by lazy { FormListAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Handzap.getApp(requireContext()).mainComponent?.injectFormListFragment(this)
@@ -29,14 +30,12 @@ class FormListFragment : Fragment() {
     }
 
     private fun attachFormListObserver() {
-        formsViewModel.forms.observe(this, Observer { viewState ->
-            when(viewState) {
-                is ViewState.Success -> {
-
-                }
-                is ViewState.EmptyList -> {
-
-                }
+        formsViewModel.getForms().observe(this, Observer {
+            if(it.isEmpty()) {
+                empty_string.visibility = View.VISIBLE
+            }else {
+                empty_string.visibility = View.INVISIBLE
+                formListAdapter.submitList(it)
             }
         })
     }
@@ -56,6 +55,12 @@ class FormListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+        init()
+    }
+
+    private fun init() {
+        rv_forms.setHasFixedSize(true)
+        rv_forms.adapter = formListAdapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yasin.handzap.data.dao.FormsDao
 import com.yasin.handzap.data.entity.Form
+import com.yasin.handzap.ui.ViewState
 import java.util.concurrent.Executor
 import javax.inject.Inject
 import kotlin.random.Random
@@ -11,13 +12,8 @@ import kotlin.random.Random
 class FormsRepository @Inject constructor(private val executor: Executor,
                                           private val formsDao: FormsDao){
 
-    fun getForms() : LiveData<List<Form>>{
-        val forms : MutableLiveData<List<Form>> = MutableLiveData()
-        executor.execute {
-            val savedForms  = formsDao.getAllForms()
-            forms.postValue(savedForms.value)
-        }
-        return forms
+    fun loadForms() : LiveData<List<Form>> {
+        return formsDao.getAllForms()
     }
 
     fun createNewForm() {

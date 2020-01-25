@@ -16,6 +16,6 @@ interface FormsDao {
     @Insert(onConflict = REPLACE)
     fun saveForm(form: Form)
 
-    @Query("SELECT * FROM Form")
+    @Query("SELECT * FROM form")
     fun getAllForms() : LiveData<List<Form>>
 }
