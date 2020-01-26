@@ -2,6 +2,7 @@ package com.yasin.handzap.ui.newForm
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -145,10 +146,13 @@ class NewFormFragment : Fragment(){
             et_budget.observeEditText()
                 .debounce(1000, TimeUnit.MILLISECONDS)
                 .filter { text -> text.isNotEmpty() }
-                .subscribe {
+                .subscribe ({
                     newFormViewModel.budget.postValue(Integer.valueOf(it))
                     newFormViewModel.budgetError.postValue("")
-                }
+                }, {
+                    Log.e("budget obsv",it.toString())
+                    newFormViewModel.budgetError.postValue("invalid")
+                })
         )
         newFormViewModel.budget.observe(viewLifecycleOwner, Observer {
             if(it?.toString()?.isNotEmpty() == true){
