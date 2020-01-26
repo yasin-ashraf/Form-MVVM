@@ -37,7 +37,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
                     app:counterEnabled="true"
-                    app:counterMaxLength="100"
+                    app:counterMaxLength="80"
+                    app:errorIconDrawable="@null"
                     app:counterOverflowTextAppearance="@color/red"
                     app:counterTextAppearance="@style/TextInputLimitStyle"
                     app:errorEnabled="true"
@@ -77,6 +78,7 @@
                     app:counterTextAppearance="@style/TextInputLimitStyle"
                     app:errorEnabled="true"
                     app:errorTextColor="@color/red"
+                    app:errorIconDrawable="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tl_title">
@@ -116,6 +118,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="1"
+                        app:errorIconDrawable="@null"
                         app:errorEnabled="true"
                         app:errorTextColor="@color/red"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -192,6 +195,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_weight="1"
                         app:errorEnabled="true"
+                        app:errorIconDrawable="@null"
                         app:errorTextColor="@color/red"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -225,6 +229,7 @@
                         android:layout_weight="1"
                         app:errorEnabled="true"
                         app:errorTextColor="@color/red"
+                        app:errorIconDrawable="@null"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tl_title">
@@ -270,6 +275,7 @@
                         android:layout_weight="1"
                         app:errorEnabled="true"
                         app:errorTextColor="@color/red"
+                        app:errorIconDrawable="@null"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tl_title">
@@ -302,6 +308,7 @@
                         android:layout_weight="1"
                         app:errorEnabled="true"
                         app:errorTextColor="@color/red"
+                        app:errorIconDrawable="@null"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tl_title">

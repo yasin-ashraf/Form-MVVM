@@ -3,10 +3,11 @@ package com.yasin.handzap.ui.newForm
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.yasin.handzap.EventObserver
 import com.yasin.handzap.Handzap
 import com.yasin.handzap.R
 import com.yasin.handzap.ViewModelFactory
@@ -61,6 +62,7 @@ class NewFormFragment : Fragment(){
     }
 
     private fun init() {
+        attachNewFormEventListener()
         et_payment.setOnClickListener {
             findNavController().navigate(R.id.action_newFormFragment_to_paymentMethodDialogFragment)
         }
@@ -76,25 +78,31 @@ class NewFormFragment : Fragment(){
         attachTextWatchers()
     }
 
+    private fun attachNewFormEventListener() {
+        newFormViewModel.createFormEvent.observe(viewLifecycleOwner, EventObserver {
+            resetAllEntries()
+            findNavController().navigateUp()
+        })
+    }
+
+    private fun resetAllEntries() {
+        et_title.setText("")
+        et_description.setText("")
+        et_budget.setText("")
+        et_budget.setText("")
+        et_rate.setText("")
+        et_payment.setText("")
+        et_date.setText("")
+        et_job_term.setText("")
+    }
+
     private fun attachTextWatchers() {
-        compositeDisposable.add(
-            et_title.observeEditText()
-                .debounce(1000, TimeUnit.MILLISECONDS)
-                .distinctUntilChanged()
-                .filter { text -> text.isNotEmpty() }
-                .subscribe {
-                    newFormViewModel.title.postValue(it)
-                }
-        )
-        compositeDisposable.add(
-            et_description.observeEditText()
-                .debounce(1000, TimeUnit.MILLISECONDS)
-                .distinctUntilChanged()
-                .filter { text -> text.isNotEmpty() }
-                .subscribe {
-                    newFormViewModel.description.postValue(it)
-                }
-        )
+        addTitleObserver()
+        addDescriptionObserver()
+        addBudgetObserver()
+    }
+
+    private fun addBudgetObserver() {
         compositeDisposable.add(
             et_budget.observeEditText()
                 .debounce(1000, TimeUnit.MILLISECONDS)
@@ -102,6 +110,54 @@ class NewFormFragment : Fragment(){
                 .filter { text -> text.isNotEmpty() }
                 .subscribe {
                     newFormViewModel.budget.postValue(Integer.valueOf(it))
+                    if(tl_budget.error?.isNotEmpty() == true){
+                        tl_budget.error = ""
+                    }
+                }
+        )
+        newFormViewModel.budget.observe(viewLifecycleOwner, Observer {
+            if(it.toString().isNotEmpty()){
+                if(newFormViewModel.title.value.isNullOrEmpty()){
+                    tl_title.error = getString(R.string.required)
+                }
+            }
+        })
+
+    }
+
+    private fun addDescriptionObserver() {
+        compositeDisposable.add(
+            et_description.observeEditText()
+                .debounce(1000, TimeUnit.MILLISECONDS)
+                .distinctUntilChanged()
+                .filter { text -> text.isNotEmpty() }
+                .subscribe {
+                    newFormViewModel.description.postValue(it)
+                    if(tl_description.error?.isNotEmpty() == true){
+                        tl_description.error = ""
+                    }
+                }
+        )
+        newFormViewModel.description.observe(viewLifecycleOwner, Observer {
+            if(it.isNotEmpty()){
+                if(newFormViewModel.title.value.isNullOrEmpty()){
+                    tl_title.error = getString(R.string.required)
+                }
+            }
+        })
+    }
+
+    private fun addTitleObserver() {
+        compositeDisposable.add(
+            et_title.observeEditText()
+                .debounce(1000, TimeUnit.MILLISECONDS)
+                .distinctUntilChanged()
+                .filter { text -> text.isNotEmpty() }
+                .subscribe {
+                    newFormViewModel.title.postValue(it)
+                    if(tl_title.error?.isNotEmpty() == true){
+                        tl_title.error = ""
+                    }
                 }
         )
     }
@@ -133,14 +189,16 @@ class NewFormFragment : Fragment(){
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.action_send){
-            validateFields()
+            if(isValid()){
+                newFormViewModel.createNewForm()
+            }
             return true
         }
         return false
     }
 
-    private fun validateFields() {
-        Toast.makeText(requireContext(),"Clicked Send",Toast.LENGTH_SHORT).show()
+    private fun isValid() : Boolean{
+        return true
     }
 
     override fun onDestroyView() {

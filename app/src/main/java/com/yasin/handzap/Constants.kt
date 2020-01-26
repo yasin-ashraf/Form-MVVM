@@ -5,3 +5,4 @@ package com.yasin.handzap
  */
 
 const val DATABASE_NAME = "HandzapDatabase.db"
+const val CURRENCY_US = "USD"

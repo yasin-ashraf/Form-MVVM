@@ -15,7 +15,7 @@ data class Form(
     val date : String?,
     val views : Int = 0,
     val description : String?,
-    val budget : Double?,
+    val budget : Int?,
     val currency : String?,
     val rate : String?,
     val paymentMethod : String?,

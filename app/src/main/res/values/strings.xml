@@ -24,4 +24,5 @@
     <string name="label_recurring_job">Recurring Job</string>
     <string name="label_same_day_job">Same Day Job</string>
     <string name="label_multi_day_job">Multi Day Job</string>
+    <string name="required">Required</string>
 </resources>
