@@ -43,6 +43,11 @@ class NewFormFragment : Fragment(){
         return viewDataBinding.root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)

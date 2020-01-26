@@ -39,7 +39,7 @@ class PaymentMethodDialogFragment : DialogFragment() {
         val alertDialogBuilder = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialog )
         alertDialogBuilder.setTitle(getString(R.string.label_payment_method))
         alertDialogBuilder.setSingleChoiceItems(paymentMethods, 0) { _, which ->
-            newFormViewModel.paymentMethod.postValue(paymentMethods[which])
+            newFormViewModel.paymentMethod.value = (paymentMethods[which])
         }
         alertDialogBuilder
             .setCancelable(true)
