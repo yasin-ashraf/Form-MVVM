@@ -1,5 +1,6 @@
 package com.yasin.handzap.ui.newForm
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yasin.handzap.ui.formList.FormsRepository
 import javax.inject.Inject
@@ -9,7 +10,7 @@ import javax.inject.Inject
  */
 class NewFormViewModel @Inject constructor(private val formsRepository: FormsRepository) : ViewModel() {
 
-
+    val paymentMethod : MutableLiveData<String> = MutableLiveData()
 
     fun createNewForm() {
         formsRepository.createNewForm()

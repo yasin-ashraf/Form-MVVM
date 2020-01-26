@@ -15,4 +15,9 @@
     <string name="label_start_date">Start Date</string>
     <string name="label_job_term">Job Term</string>
     <string name="label_attachments">Attachments</string>
+    <string name="label_no_preference">No Preference</string>
+    <string name="label_e_payment">E-Payment</string>
+    <string name="label_cash">Cash</string>
+    <string name="label_cancel">CANCEL</string>
+    <string name="label_select">SELECT</string>
 </resources>

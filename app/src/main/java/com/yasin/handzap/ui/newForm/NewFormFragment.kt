@@ -3,13 +3,14 @@ package com.yasin.handzap.ui.newForm
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.yasin.handzap.Handzap
 import com.yasin.handzap.R
 import com.yasin.handzap.ViewModelFactory
 import com.yasin.handzap.databinding.FragmentCreateNewFormBinding
+import kotlinx.android.synthetic.main.fragment_create_new_form.*
 import javax.inject.Inject
 
 /**
@@ -19,7 +20,7 @@ class NewFormFragment : Fragment(){
 
     private lateinit var viewDataBinding: FragmentCreateNewFormBinding
     @Inject lateinit var factory: ViewModelFactory
-    private lateinit var formViewModel: NewFormViewModel
+    private lateinit var newFormViewModel: NewFormViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Handzap.getApp(requireContext()).mainComponent?.injectNewFormFragment(this)
@@ -28,7 +29,7 @@ class NewFormFragment : Fragment(){
     }
 
     private fun configureViewModel() {
-        formViewModel = ViewModelProviders.of(this, factory).get(NewFormViewModel::class.java   )
+        newFormViewModel = ViewModelProviders.of(requireActivity(), factory).get(NewFormViewModel::class.java   )
     }
 
     override fun onCreateView(
@@ -37,7 +38,7 @@ class NewFormFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         viewDataBinding = FragmentCreateNewFormBinding.inflate(inflater,container,false).apply {
-            viewmodel = formViewModel
+            viewmodel = newFormViewModel
         }
         return viewDataBinding.root
     }
@@ -45,6 +46,13 @@ class NewFormFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+        init()
+    }
+
+    private fun init() {
+        et_payment.setOnClickListener {
+            findNavController().navigate(R.id.action_newFormFragment_to_paymentMethodDialogFragment)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

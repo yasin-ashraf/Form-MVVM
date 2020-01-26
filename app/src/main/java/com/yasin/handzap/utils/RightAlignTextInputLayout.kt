@@ -33,8 +33,4 @@ class RightAlignTextInputLayout(context: Context, attributeSet: AttributeSet) : 
         }
     }
 
-    override fun getMinimumWidth(): Int {
-        return super.getMinimumWidth()
-    }
-
 }
