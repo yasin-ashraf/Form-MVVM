@@ -26,6 +26,5 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(NewFormViewModel::class)
-    abstract fun bindNewFormViewModel(newFormViewModel: NewFormViewModel
-    ) : ViewModel
+    abstract fun bindNewFormViewModel(newFormViewModel: NewFormViewModel) : ViewModel
 }

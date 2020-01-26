@@ -5,6 +5,7 @@ import com.yasin.handzap.CURRENCY_US
 import com.yasin.handzap.Event
 import com.yasin.handzap.data.entity.Form
 import com.yasin.handzap.ui.formList.FormsRepository
+import com.yasin.handzap.utils.FormValidator
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -12,8 +13,12 @@ import javax.inject.Inject
 /**
  * Created by Yasin on 25/1/20.
  */
-class NewFormViewModel @Inject constructor(private val formsRepository: FormsRepository) : ViewModel() {
+class NewFormViewModel @Inject constructor(private val formsRepository: FormsRepository,
+                                           private val formValidator: FormValidator) : ViewModel() {
 
+    private val REQUIRED : String = "Required"
+    private val INVALID_VALUE : String = "invalid value"
+    private val INVALID : String = "invalid"
     private val _createFormEvent : MutableLiveData<Event<String>> = MutableLiveData()
     val createFormEvent : LiveData<Event<String>> = _createFormEvent
     val paymentMethod : MutableLiveData<String> = MutableLiveData("")
@@ -61,8 +66,36 @@ class NewFormViewModel @Inject constructor(private val formsRepository: FormsRep
         return format.format(calendar.time)
     }
 
-    private fun isValid(text: String): Boolean {
-        return text.isNotEmpty()
+    fun isValid(): Boolean {
+        var valid = true
+        if(!formValidator.validateTitle(title.value.toString())){
+            titleError.value = REQUIRED
+            valid = false
+        }
+        if(!formValidator.validateDescription(description.value.toString())){
+            descriptionError.value = INVALID
+            valid = false
+        }
+        if(!formValidator.validateBudget(budget.value ?: 0)){
+            budgetError.value = INVALID_VALUE
+            valid = false
+        }
+        if(!formValidator.validateDate(formattedDate.value.toString())){
+            formattedDateError.value = REQUIRED
+            valid = false
+        }
+        if(!formValidator.validateJobTerm(jobTermOptions.value.toString())){
+            jobTermOptionsError.value = REQUIRED
+            valid = false
+        }
+        if(!formValidator.validatePaymentMethod(paymentMethod.value.toString())){
+            paymentMethodError.value = REQUIRED
+            valid = false
+        }
+        if(!formValidator.validateRate(rateOption.value.toString())){
+            rateOptionError.value = REQUIRED
+            valid = false
+        }
+        return valid
     }
-
 }

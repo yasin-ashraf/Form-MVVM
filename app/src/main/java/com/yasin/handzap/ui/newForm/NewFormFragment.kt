@@ -97,6 +97,7 @@ class NewFormFragment : Fragment(){
     private fun addJobTermObserver() {
         newFormViewModel.jobTermOptions.observe(viewLifecycleOwner, Observer {
             if(it.toString().isNotEmpty()){
+                newFormViewModel.jobTermOptionsError.postValue("")
                 if(newFormViewModel.title.value.isNullOrEmpty()){
                     newFormViewModel.titleError.postValue(getString(R.string.required))
                 }
@@ -108,6 +109,7 @@ class NewFormFragment : Fragment(){
     private fun addDateObserver() {
         newFormViewModel.formattedDate.observe(viewLifecycleOwner, Observer {
             if(it.toString().isNotEmpty()){
+                newFormViewModel.formattedDateError.postValue("")
                 if(newFormViewModel.title.value.isNullOrEmpty()){
                     newFormViewModel.titleError.postValue(getString(R.string.required))
                 }
@@ -119,6 +121,7 @@ class NewFormFragment : Fragment(){
     private fun addPaymentMethodObserver() {
         newFormViewModel.paymentMethod.observe(viewLifecycleOwner, Observer {
             if(it.toString().isNotEmpty()){
+                newFormViewModel.paymentMethodError.postValue("")
                 if(newFormViewModel.title.value.isNullOrEmpty()){
                     newFormViewModel.titleError.postValue(getString(R.string.required))
                 }
@@ -128,8 +131,9 @@ class NewFormFragment : Fragment(){
     }
 
     private fun addRateObserver() {
-        newFormViewModel.paymentMethod.observe(viewLifecycleOwner, Observer {
+        newFormViewModel.rateOption.observe(viewLifecycleOwner, Observer {
             if(it.toString().isNotEmpty()){
+                newFormViewModel.rateOptionError.postValue("")
                 if(newFormViewModel.title.value.isNullOrEmpty()){
                     newFormViewModel.titleError.postValue(getString(R.string.required))
                 }
@@ -215,16 +219,12 @@ class NewFormFragment : Fragment(){
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.action_send){
-            if(isValid()){
+            if(newFormViewModel.isValid()){
                 newFormViewModel.createNewForm()
             }
             return true
         }
         return false
-    }
-
-    private fun isValid() : Boolean{
-        return true
     }
 
     override fun onDestroyView() {
