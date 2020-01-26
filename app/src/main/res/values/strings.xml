@@ -8,4 +8,11 @@
     <string name="label_form_title">Form Title</string>
     <string name="action_send">Send</string>
     <string name="label_form_description">Form Description</string>
+    <string name="label_budget">Budget</string>
+    <string name="label_usd">USD</string>
+    <string name="label_rate">Rate</string>
+    <string name="label_payment_method">Payment Method</string>
+    <string name="label_start_date">Start Date</string>
+    <string name="label_job_term">Job Term</string>
+    <string name="label_attachments">Attachments</string>
 </resources>
