@@ -80,6 +80,7 @@ class NewFormFragment : Fragment(){
 
     private fun attachNewFormEventListener() {
         newFormViewModel.createFormEvent.observe(viewLifecycleOwner, EventObserver {
+            newFormViewModel.resetAllValues()
             findNavController().navigateUp()
         })
     }
@@ -110,9 +111,6 @@ class NewFormFragment : Fragment(){
         newFormViewModel.formattedDate.observe(viewLifecycleOwner, Observer {
             if(it.toString().isNotEmpty()){
                 newFormViewModel.formattedDateError.postValue("")
-                if(newFormViewModel.title.value.isNullOrEmpty()){
-                    newFormViewModel.titleError.postValue(getString(R.string.required))
-                }
             }
         })
 
@@ -153,7 +151,7 @@ class NewFormFragment : Fragment(){
                 }
         )
         newFormViewModel.budget.observe(viewLifecycleOwner, Observer {
-            if(it.toString().isNotEmpty()){
+            if(it?.toString()?.isNotEmpty() == true){
                 if(newFormViewModel.title.value.isNullOrEmpty()){
                     newFormViewModel.titleError.postValue(getString(R.string.required))
                 }

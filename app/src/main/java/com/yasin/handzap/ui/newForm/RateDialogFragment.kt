@@ -37,7 +37,7 @@ class RateDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val alertDialogBuilder = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialog )
         alertDialogBuilder.setTitle(getString(R.string.label_job_term))
-        alertDialogBuilder.setSingleChoiceItems(rateOptions, 0) { _, which ->
+        alertDialogBuilder.setSingleChoiceItems(rateOptions, -1) { _, which ->
             newFormViewModel.rateOption.value = (rateOptions[which])
         }
         alertDialogBuilder

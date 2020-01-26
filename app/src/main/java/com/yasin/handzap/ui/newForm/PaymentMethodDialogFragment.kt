@@ -37,7 +37,7 @@ class PaymentMethodDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val alertDialogBuilder = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialog )
         alertDialogBuilder.setTitle(getString(R.string.label_payment_method))
-        alertDialogBuilder.setSingleChoiceItems(paymentMethods, 0) { _, which ->
+        alertDialogBuilder.setSingleChoiceItems(paymentMethods, -1) { _, which ->
             newFormViewModel.paymentMethod.value = (paymentMethods[which])
         }
         alertDialogBuilder

@@ -80,7 +80,7 @@ class NewFormViewModel @Inject constructor(private val formsRepository: FormsRep
             budgetError.value = INVALID_VALUE
             valid = false
         }
-        if(!formValidator.validateDate(formattedDate.value.toString())){
+        if(!formValidator.validateDate(selectedDateLong.value ?: 0L)){
             formattedDateError.value = REQUIRED
             valid = false
         }
@@ -97,5 +97,15 @@ class NewFormViewModel @Inject constructor(private val formsRepository: FormsRep
             valid = false
         }
         return valid
+    }
+
+    fun resetAllValues() {
+        title.postValue("")
+        description.postValue("")
+        budget.postValue(null)
+        paymentMethod.postValue("")
+        rateOption.postValue("")
+//        selectedDateLong.postValue(0L)
+        jobTermOptions.postValue("")
     }
 }

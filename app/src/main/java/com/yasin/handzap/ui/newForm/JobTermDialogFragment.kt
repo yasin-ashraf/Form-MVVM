@@ -41,7 +41,7 @@ class JobTermDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val alertDialogBuilder = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialog )
         alertDialogBuilder.setTitle(getString(R.string.label_rate))
-        alertDialogBuilder.setSingleChoiceItems(jobTermOptions, 0) { _, which ->
+        alertDialogBuilder.setSingleChoiceItems(jobTermOptions, -1) { _, which ->
             newFormViewModel.jobTermOptions.value = (jobTermOptions[which])
         }
         alertDialogBuilder

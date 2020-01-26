@@ -27,7 +27,7 @@ class FormValidator @Inject constructor() {
 
     fun validatePaymentMethod(payment : String): Boolean = payment.isNotEmpty()
 
-    fun validateDate(date: String): Boolean = date.isNotEmpty() && date != "0L"
+    fun validateDate(date: Long): Boolean = date != 0L
 
     fun validateJobTerm(jobTerm: String): Boolean = jobTerm.isNotEmpty()
 }
