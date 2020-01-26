@@ -80,45 +80,78 @@ class NewFormFragment : Fragment(){
 
     private fun attachNewFormEventListener() {
         newFormViewModel.createFormEvent.observe(viewLifecycleOwner, EventObserver {
-            resetAllEntries()
             findNavController().navigateUp()
         })
-    }
-
-    private fun resetAllEntries() {
-        et_title.setText("")
-        et_description.setText("")
-        et_budget.setText("")
-        et_budget.setText("")
-        et_rate.setText("")
-        et_payment.setText("")
-        et_date.setText("")
-        et_job_term.setText("")
     }
 
     private fun attachTextWatchers() {
         addTitleObserver()
         addDescriptionObserver()
         addBudgetObserver()
+        addRateObserver()
+        addPaymentMethodObserver()
+        addDateObserver()
+        addJobTermObserver()
+    }
+
+    private fun addJobTermObserver() {
+        newFormViewModel.jobTermOptions.observe(viewLifecycleOwner, Observer {
+            if(it.toString().isNotEmpty()){
+                if(newFormViewModel.title.value.isNullOrEmpty()){
+                    newFormViewModel.titleError.postValue(getString(R.string.required))
+                }
+            }
+        })
+
+    }
+
+    private fun addDateObserver() {
+        newFormViewModel.formattedDate.observe(viewLifecycleOwner, Observer {
+            if(it.toString().isNotEmpty()){
+                if(newFormViewModel.title.value.isNullOrEmpty()){
+                    newFormViewModel.titleError.postValue(getString(R.string.required))
+                }
+            }
+        })
+
+    }
+
+    private fun addPaymentMethodObserver() {
+        newFormViewModel.paymentMethod.observe(viewLifecycleOwner, Observer {
+            if(it.toString().isNotEmpty()){
+                if(newFormViewModel.title.value.isNullOrEmpty()){
+                    newFormViewModel.titleError.postValue(getString(R.string.required))
+                }
+            }
+        })
+
+    }
+
+    private fun addRateObserver() {
+        newFormViewModel.paymentMethod.observe(viewLifecycleOwner, Observer {
+            if(it.toString().isNotEmpty()){
+                if(newFormViewModel.title.value.isNullOrEmpty()){
+                    newFormViewModel.titleError.postValue(getString(R.string.required))
+                }
+            }
+        })
+
     }
 
     private fun addBudgetObserver() {
         compositeDisposable.add(
             et_budget.observeEditText()
                 .debounce(1000, TimeUnit.MILLISECONDS)
-                .distinctUntilChanged()
                 .filter { text -> text.isNotEmpty() }
                 .subscribe {
                     newFormViewModel.budget.postValue(Integer.valueOf(it))
-                    if(tl_budget.error?.isNotEmpty() == true){
-                        tl_budget.error = ""
-                    }
+                    newFormViewModel.budgetError.postValue("")
                 }
         )
         newFormViewModel.budget.observe(viewLifecycleOwner, Observer {
             if(it.toString().isNotEmpty()){
                 if(newFormViewModel.title.value.isNullOrEmpty()){
-                    tl_title.error = getString(R.string.required)
+                    newFormViewModel.titleError.postValue(getString(R.string.required))
                 }
             }
         })
@@ -129,19 +162,16 @@ class NewFormFragment : Fragment(){
         compositeDisposable.add(
             et_description.observeEditText()
                 .debounce(1000, TimeUnit.MILLISECONDS)
-                .distinctUntilChanged()
                 .filter { text -> text.isNotEmpty() }
                 .subscribe {
                     newFormViewModel.description.postValue(it)
-                    if(tl_description.error?.isNotEmpty() == true){
-                        tl_description.error = ""
-                    }
+                    newFormViewModel.descriptionError.postValue("")
                 }
         )
         newFormViewModel.description.observe(viewLifecycleOwner, Observer {
             if(it.isNotEmpty()){
                 if(newFormViewModel.title.value.isNullOrEmpty()){
-                    tl_title.error = getString(R.string.required)
+                    newFormViewModel.titleError.postValue(getString(R.string.required))
                 }
             }
         })
@@ -151,13 +181,9 @@ class NewFormFragment : Fragment(){
         compositeDisposable.add(
             et_title.observeEditText()
                 .debounce(1000, TimeUnit.MILLISECONDS)
-                .distinctUntilChanged()
-                .filter { text -> text.isNotEmpty() }
                 .subscribe {
                     newFormViewModel.title.postValue(it)
-                    if(tl_title.error?.isNotEmpty() == true){
-                        tl_title.error = ""
-                    }
+                    newFormViewModel.titleError.postValue("")
                 }
         )
     }
