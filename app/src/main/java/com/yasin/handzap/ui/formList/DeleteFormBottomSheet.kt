@@ -1,6 +1,5 @@
 package com.yasin.handzap.ui.formList
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +8,16 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.yasin.handzap.Handzap
 import com.yasin.handzap.R
+import com.yasin.handzap.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_delete.*
+import javax.inject.Inject
 
 /**
  * Created by Yasin on 25/1/20.
  */
 class DeleteFormBottomSheet : BottomSheetDialogFragment() {
 
+    @Inject lateinit var factory: ViewModelFactory
     private lateinit var formsViewModel: FormsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +27,7 @@ class DeleteFormBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun configureViewModel() {
-        formsViewModel = ViewModelProviders.of(requireActivity()).get(FormsViewModel::class.java)
+        formsViewModel = ViewModelProviders.of(requireActivity(),factory).get(FormsViewModel::class.java)
     }
 
     override fun onCreateView(

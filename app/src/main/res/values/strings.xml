@@ -5,4 +5,24 @@
     <string name="action_inbox">Inbox</string>
     <string name="label_no_forms">No forms to show up!</string>
     <string name="action_delete_form">Delete Form</string>
+    <string name="label_form_title">Form Title</string>
+    <string name="action_send">Send</string>
+    <string name="label_form_description">Form Description</string>
+    <string name="label_budget">Budget</string>
+    <string name="label_usd">USD</string>
+    <string name="label_rate">Rate</string>
+    <string name="label_payment_method">Payment Method</string>
+    <string name="label_start_date">Start Date</string>
+    <string name="label_job_term">Job Term</string>
+    <string name="label_attachments">Attachments</string>
+    <string name="label_no_preference">No Preference</string>
+    <string name="label_e_payment">E-Payment</string>
+    <string name="label_cash">Cash</string>
+    <string name="label_select">SELECT</string>
+    <string name="label_fixed_budget">Fixed Budget</string>
+    <string name="label_hourly_rate">Hourly Rate</string>
+    <string name="label_recurring_job">Recurring Job</string>
+    <string name="label_same_day_job">Same Day Job</string>
+    <string name="label_multi_day_job">Multi Day Job</string>
+    <string name="required">Required</string>
 </resources>
