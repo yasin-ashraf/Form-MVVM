@@ -11,8 +11,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
-        android:padding="8dp"
-        android:src="@drawable/ic_delete"
+        android:padding="12dp"
+        android:src="@drawable/ic_trash_icon"
         android:layout_gravity="center_vertical"
         android:tint="@color/red"/>
 

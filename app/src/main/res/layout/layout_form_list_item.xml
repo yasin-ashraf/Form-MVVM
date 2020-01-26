@@ -92,7 +92,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_rate"
+                    android:src="@drawable/ic_category__icon"
                     android:layout_gravity="center"
                     android:tint="@color/grey"/>
 
@@ -125,7 +125,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_job_term"
+                    android:src="@drawable/ic_recurring_iocn"
                     android:layout_gravity="center"
                     android:tint="@color/grey"/>
 

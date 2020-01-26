@@ -9,15 +9,19 @@
             type="com.yasin.handzap.ui.newForm.NewFormViewModel" />
     </data>
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/scrollView_child"
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/label_attachements">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/bg_white"
@@ -26,8 +30,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/cl_attachments"
-                android:background="@color/white">
+                app:layout_constraintBottom_toTopOf="@id/cl_attachments">
 
                 <com.yasin.handzap.utils.RightAlignTextInputLayout
                     android:id="@+id/tl_title"
@@ -341,53 +344,61 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="5dp"
-                    android:textSize="15sp"
-                    android:textColor="@color/grey"
-                    android:text="@string/label_attachments"/>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_attachments"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/label_attachements"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/white"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            app:layout_constraintTop_toBottomOf="@id/scrollView"
+            app:layout_constraintBottom_toTopOf="@id/cl_attachments"
+            android:textSize="15sp"
+            android:textColor="@color/grey"
+            android:text="@string/label_attachments"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_attachments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/add_card"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="1">
+                android:layout_margin="8dp"
+                app:cardCornerRadius="8dp"
+                android:elevation="0dp"
+                app:cardBackgroundColor="@color/grey">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/add_card"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_margin="8dp"
-                    app:cardCornerRadius="8dp"
-                    android:elevation="0dp"
-                    app:cardBackgroundColor="@color/grey">
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_plusicon"
+                    android:tint="@color/white"/>
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_add"
-                        android:tint="@color/white"/>
-
-                </com.google.android.material.card.MaterialCardView>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
