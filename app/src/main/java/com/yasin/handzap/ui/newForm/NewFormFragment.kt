@@ -61,6 +61,9 @@ class NewFormFragment : Fragment(){
         et_rate.setOnClickListener {
             findNavController().navigate(R.id.action_newFormFragment_to_rateDialogFragment)
         }
+        et_job_term.setOnClickListener {
+            findNavController().navigate(R.id.action_newFormFragment_to_jobTermDialogFragment)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

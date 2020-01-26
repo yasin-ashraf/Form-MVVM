@@ -7,6 +7,7 @@ import com.yasin.handzap.dagger.modules.ViewModelModule
 import com.yasin.handzap.dagger.scopes.ApplicationScope
 import com.yasin.handzap.ui.formList.DeleteFormBottomSheet
 import com.yasin.handzap.ui.formList.FormListFragment
+import com.yasin.handzap.ui.newForm.JobTermDialogFragment
 import com.yasin.handzap.ui.newForm.NewFormFragment
 import com.yasin.handzap.ui.newForm.PaymentMethodDialogFragment
 import com.yasin.handzap.ui.newForm.RateDialogFragment
@@ -22,6 +23,7 @@ interface MainComponent {
     fun injectFormListFragment(formListFragment: FormListFragment)
     fun injectNewFormFragment(newFormFragment: NewFormFragment)
     fun injectDeleteFormFragment(deleteFormBottomSheet: DeleteFormBottomSheet)
-    fun injectPaymentMethodDeleteFragment(paymentMethodDialogFragment: PaymentMethodDialogFragment)
-    fun injectRateDeleteFragment(rateDialogFragment: RateDialogFragment)
+    fun injectPaymentMethodFragment(paymentMethodDialogFragment: PaymentMethodDialogFragment)
+    fun injectRateFragment(rateDialogFragment: RateDialogFragment)
+    fun injectJobTermFragment(jobTermDialogFragment: JobTermDialogFragment)
 }

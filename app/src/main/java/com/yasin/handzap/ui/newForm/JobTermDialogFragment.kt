@@ -13,18 +13,22 @@ import javax.inject.Inject
 /**
  * Created by Yasin on 26/1/20.
  */
-class PaymentMethodDialogFragment : DialogFragment() {
+class JobTermDialogFragment : DialogFragment() {
 
     @Inject lateinit var factory: ViewModelFactory
     private lateinit var newFormViewModel: NewFormViewModel
 
-    private val paymentMethods by lazy { arrayOf(
-        getString(R.string.label_no_preference),
-        getString(R.string.label_e_payment),
-        getString(R.string.label_cash)) }
+    private val jobTermOptions by lazy {
+        arrayOf(
+            getString(R.string.label_no_preference),
+            getString(R.string.label_recurring_job),
+            getString(R.string.label_same_day_job),
+            getString(R.string.label_multi_day_job)
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Handzap.getApp(requireActivity()).mainComponent?.injectPaymentMethodFragment(this)
+        Handzap.getApp(requireActivity()).mainComponent?.injectJobTermFragment(this)
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.AppTheme_AlertDialog)
         configureViewModel()
@@ -36,9 +40,9 @@ class PaymentMethodDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val alertDialogBuilder = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialog )
-        alertDialogBuilder.setTitle(getString(R.string.label_payment_method))
-        alertDialogBuilder.setSingleChoiceItems(paymentMethods, 0) { _, which ->
-            newFormViewModel.paymentMethod.value = (paymentMethods[which])
+        alertDialogBuilder.setTitle(getString(R.string.label_rate))
+        alertDialogBuilder.setSingleChoiceItems(jobTermOptions, 0) { _, which ->
+            newFormViewModel.jobTermOptions.value = (jobTermOptions[which])
         }
         alertDialogBuilder
             .setCancelable(true)
@@ -52,4 +56,5 @@ class PaymentMethodDialogFragment : DialogFragment() {
         (alertDialog.window)?.setWindowAnimations(R.style.DialogAnimation)
         return alertDialog
     }
+
 }

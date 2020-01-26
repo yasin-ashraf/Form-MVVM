@@ -18,8 +18,10 @@
     <string name="label_no_preference">No Preference</string>
     <string name="label_e_payment">E-Payment</string>
     <string name="label_cash">Cash</string>
-    <string name="label_cancel">CANCEL</string>
     <string name="label_select">SELECT</string>
     <string name="label_fixed_budget">Fixed Budget</string>
     <string name="label_hourly_rate">Hourly Rate</string>
+    <string name="label_recurring_job">Recurring Job</string>
+    <string name="label_same_day_job">Same Day Job</string>
+    <string name="label_multi_day_job">Multi Day Job</string>
 </resources>

@@ -24,7 +24,7 @@ class RateDialogFragment : DialogFragment() {
         getString(R.string.label_hourly_rate)) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Handzap.getApp(requireActivity()).mainComponent?.injectRateDeleteFragment(this)
+        Handzap.getApp(requireActivity()).mainComponent?.injectRateFragment(this)
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.AppTheme_AlertDialog)
         configureViewModel()
@@ -36,18 +36,16 @@ class RateDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val alertDialogBuilder = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialog )
-        alertDialogBuilder.setTitle(getString(R.string.label_payment_method))
+        alertDialogBuilder.setTitle(getString(R.string.label_job_term))
         alertDialogBuilder.setSingleChoiceItems(rateOptions, 0) { _, which ->
             newFormViewModel.rateOption.value = (rateOptions[which])
         }
         alertDialogBuilder
             .setCancelable(true)
-            .setPositiveButton(
-                getString(R.string.label_select)
-            ) { dialog, _ ->
+            .setPositiveButton(getString(R.string.label_select)) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setNegativeButton(getString(R.string.label_cancel)) { dialog, _ ->
+            .setNegativeButton(getString(android.R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
         val alertDialog = alertDialogBuilder.create()
