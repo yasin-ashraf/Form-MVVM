@@ -9,6 +9,7 @@ import com.yasin.handzap.ui.formList.DeleteFormBottomSheet
 import com.yasin.handzap.ui.formList.FormListFragment
 import com.yasin.handzap.ui.newForm.NewFormFragment
 import com.yasin.handzap.ui.newForm.PaymentMethodDialogFragment
+import com.yasin.handzap.ui.newForm.RateDialogFragment
 import dagger.Component
 
 /**
@@ -22,4 +23,5 @@ interface MainComponent {
     fun injectNewFormFragment(newFormFragment: NewFormFragment)
     fun injectDeleteFormFragment(deleteFormBottomSheet: DeleteFormBottomSheet)
     fun injectPaymentMethodDeleteFragment(paymentMethodDialogFragment: PaymentMethodDialogFragment)
+    fun injectRateDeleteFragment(rateDialogFragment: RateDialogFragment)
 }

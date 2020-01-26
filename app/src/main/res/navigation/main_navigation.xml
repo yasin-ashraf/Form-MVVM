@@ -29,6 +29,10 @@
             android:id="@+id/action_newFormFragment_to_paymentMethodDialogFragment"
             app:destination="@id/paymentMethodDialogFragment"
             app:popUpTo="@+id/newFormFragment" />
+        <action
+            android:id="@+id/action_newFormFragment_to_rateDialogFragment"
+            app:destination="@id/rateDialogFragment"
+            app:popUpTo="@+id/newFormFragment" />
     </fragment>
     <dialog
         android:id="@+id/deleteFormBottomSheet2"
@@ -38,4 +42,8 @@
         android:id="@+id/paymentMethodDialogFragment"
         android:name="com.yasin.handzap.ui.newForm.PaymentMethodDialogFragment"
         android:label="PaymentMethodDialogFragment" />
+    <dialog
+        android:id="@+id/rateDialogFragment"
+        android:name="com.yasin.handzap.ui.newForm.RateDialogFragment"
+        android:label="RateDialogFragment" />
 </navigation>

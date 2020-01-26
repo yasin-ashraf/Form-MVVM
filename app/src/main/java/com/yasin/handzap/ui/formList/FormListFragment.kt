@@ -31,7 +31,10 @@ class FormListFragment : Fragment() {
         Handzap.getApp(requireContext()).mainComponent?.injectFormListFragment(this)
         super.onCreate(savedInstanceState)
         configureViewModel()
-        attachFormListObserver()
+    }
+
+    private fun configureViewModel() {
+        formsViewModel = ViewModelProviders.of(requireActivity(),viewModelFactory).get(FormsViewModel::class.java)
     }
 
     private fun attachFormListObserver() {
@@ -44,10 +47,6 @@ class FormListFragment : Fragment() {
                 formListAdapter.submitList(it)
             }
         })
-    }
-
-    private fun configureViewModel() {
-        formsViewModel = ViewModelProviders.of(requireActivity(),viewModelFactory).get(FormsViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -67,6 +66,7 @@ class FormListFragment : Fragment() {
     private fun init() {
         rv_forms.setHasFixedSize(true)
         rv_forms.adapter = formListAdapter
+        attachFormListObserver()
         observeOptionsClick()
     }
 

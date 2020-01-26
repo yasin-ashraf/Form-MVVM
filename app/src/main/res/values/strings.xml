@@ -20,4 +20,6 @@
     <string name="label_cash">Cash</string>
     <string name="label_cancel">CANCEL</string>
     <string name="label_select">SELECT</string>
+    <string name="label_fixed_budget">Fixed Budget</string>
+    <string name="label_hourly_rate">Hourly Rate</string>
 </resources>

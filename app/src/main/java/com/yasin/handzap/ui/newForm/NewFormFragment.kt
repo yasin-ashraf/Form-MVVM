@@ -58,6 +58,9 @@ class NewFormFragment : Fragment(){
         et_payment.setOnClickListener {
             findNavController().navigate(R.id.action_newFormFragment_to_paymentMethodDialogFragment)
         }
+        et_rate.setOnClickListener {
+            findNavController().navigate(R.id.action_newFormFragment_to_rateDialogFragment)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

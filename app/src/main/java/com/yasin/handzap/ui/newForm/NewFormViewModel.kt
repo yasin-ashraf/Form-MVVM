@@ -11,6 +11,7 @@ import javax.inject.Inject
 class NewFormViewModel @Inject constructor(private val formsRepository: FormsRepository) : ViewModel() {
 
     val paymentMethod : MutableLiveData<String> = MutableLiveData("")
+    val rateOption : MutableLiveData<String> = MutableLiveData("")
 
     fun createNewForm() {
         formsRepository.createNewForm()
