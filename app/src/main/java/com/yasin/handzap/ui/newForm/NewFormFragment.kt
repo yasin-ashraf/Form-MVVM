@@ -1,9 +1,16 @@
 package com.yasin.handzap.ui.newForm
 
+import android.Manifest
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -12,6 +19,7 @@ import com.yasin.handzap.EventObserver
 import com.yasin.handzap.Handzap
 import com.yasin.handzap.R
 import com.yasin.handzap.ViewModelFactory
+import com.yasin.handzap.data.entity.Media
 import com.yasin.handzap.databinding.FragmentCreateNewFormBinding
 import com.yasin.handzap.utils.observeEditText
 import io.reactivex.disposables.CompositeDisposable
@@ -19,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_create_new_form.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 /**
  * Created by Yasin on 24/1/20.
@@ -26,6 +35,7 @@ import javax.inject.Inject
 class NewFormFragment : Fragment(){
 
     private val compositeDisposable : CompositeDisposable by lazy { CompositeDisposable() }
+    private val documentsAdapter : DocumentsAdapter by lazy { DocumentsAdapter() }
     private lateinit var viewDataBinding: FragmentCreateNewFormBinding
     @Inject lateinit var factory: ViewModelFactory
     private lateinit var newFormViewModel: NewFormViewModel
@@ -63,6 +73,7 @@ class NewFormFragment : Fragment(){
     }
 
     private fun init() {
+        rv_documents.adapter = documentsAdapter
         attachNewFormEventListener()
         et_payment.setOnClickListener {
             findNavController().navigate(R.id.action_newFormFragment_to_paymentMethodDialogFragment)
@@ -76,7 +87,17 @@ class NewFormFragment : Fragment(){
         et_date.setOnClickListener {
             showDatePicker()
         }
+        add_card.setOnClickListener {
+            pickMediaFromGallery()
+        }
+        attachDocumentUploadObserver()
         attachTextWatchers()
+    }
+
+    private fun attachDocumentUploadObserver() {
+        newFormViewModel.fileUploads.observe(this.viewLifecycleOwner, Observer {
+            documentsAdapter.submitList(ArrayList(it))
+        })
     }
 
     private fun attachNewFormEventListener() {
@@ -213,6 +234,40 @@ class NewFormFragment : Fragment(){
         datePicker.show()
     }
 
+    private fun pickMediaFromGallery() {
+        if (checkStoragePermissions()) {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "image/*"
+                putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/*", "video/*"))
+            }
+            startActivityForResult(intent, RC_MEDIA_PICKER)
+        }
+    }
+
+    private fun checkStoragePermissions() : Boolean {
+        val permissionStorageWrite = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (permissionStorageWrite != PackageManager.PERMISSION_GRANTED) {
+            requestStoragePermission()
+            return false
+        }
+        return true
+    }
+
+    private fun requestStoragePermission() {
+        ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            REQUEST_PERMISSIONS)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK && requestCode == RC_MEDIA_PICKER) {
+            val uri = data?.data ?: Uri.parse("No-Uri")
+            val mimeType: String? = activity?.contentResolver?.getType(uri)
+            val media = Media(uri,mimeType)
+            newFormViewModel.addFileUri(media)
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -228,6 +283,16 @@ class NewFormFragment : Fragment(){
         }
         return false
     }
+
+    companion object {
+        private const val RC_MEDIA_PICKER: Int = 1002
+        private const val REQUEST_PERMISSIONS = 1002
+        private val PERMISSIONS = arrayOf(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA)
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

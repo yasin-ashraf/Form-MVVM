@@ -1,6 +1,5 @@
 package com.yasin.handzap.data.entity
 
-import android.net.Uri
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -21,5 +20,5 @@ data class Form(
     val paymentMethod : String?,
     val startDate : String?,
     val jobTerm : String?,
-    val attachedFiles : List<Uri>?
+    val attachedFiles : List<Media>?
 )

@@ -1,9 +1,13 @@
 package com.yasin.handzap.ui.newForm
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import com.yasin.handzap.CURRENCY_US
 import com.yasin.handzap.Event
 import com.yasin.handzap.data.entity.Form
+import com.yasin.handzap.data.entity.Media
 import com.yasin.handzap.ui.formList.FormsRepository
 import com.yasin.handzap.utils.FormValidator
 import java.text.SimpleDateFormat
@@ -20,6 +24,8 @@ class NewFormViewModel @Inject constructor(private val formsRepository: FormsRep
     private val INVALID_VALUE : String = "invalid value"
     private val INVALID : String = "invalid"
     private val _createFormEvent : MutableLiveData<Event<String>> = MutableLiveData()
+    private val _fileUploads : MutableLiveData<MutableList<Media>> = MutableLiveData(mutableListOf())
+    val fileUploads : LiveData<MutableList<Media>> = _fileUploads
     val createFormEvent : LiveData<Event<String>> = _createFormEvent
     val paymentMethod : MutableLiveData<String> = MutableLiveData("")
     val paymentMethodError : MutableLiveData<String> = MutableLiveData("")
@@ -52,10 +58,15 @@ class NewFormViewModel @Inject constructor(private val formsRepository: FormsRep
             paymentMethod = paymentMethod.value,
             startDate = formattedDate.value,
             jobTerm = jobTermOptions.value,
-            attachedFiles = null
+            attachedFiles = _fileUploads.value
         )
         formsRepository.createNewForm(newForm)
         _createFormEvent.value = Event(newForm.id)
+    }
+
+    fun addFileUri(media: Media) {
+        _fileUploads.value?.add(media)
+        _fileUploads.value = _fileUploads.value
     }
 
     private fun convertLongTimeToFormattedDate(time: Long): String {
@@ -107,5 +118,6 @@ class NewFormViewModel @Inject constructor(private val formsRepository: FormsRep
         rateOption.postValue("")
 //        selectedDateLong.postValue(0L)
         jobTermOptions.postValue("")
+        _fileUploads.value = mutableListOf()
     }
 }

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewmodel"
             type="com.yasin.handzap.ui.newForm.NewFormViewModel" />
@@ -396,10 +397,14 @@
             </com.google.android.material.card.MaterialCardView>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_documents"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:orientation="horizontal"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/add_card"
