@@ -109,15 +109,4 @@ class NewFormViewModel @Inject constructor(private val formsRepository: FormsRep
         }
         return valid
     }
-
-    fun resetAllValues() {
-        title.postValue("")
-        description.postValue("")
-        budget.postValue(null)
-        paymentMethod.postValue("")
-        rateOption.postValue("")
-//        selectedDateLong.postValue(0L)
-        jobTermOptions.postValue("")
-        _fileUploads.value = mutableListOf()
-    }
 }

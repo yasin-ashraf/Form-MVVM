@@ -1,6 +1,5 @@
 package com.yasin.handzap.data.entity
 
-import android.net.Uri
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -10,6 +9,6 @@ import androidx.room.PrimaryKey
 @Entity
 data class Media(
     @PrimaryKey
-    val uri: Uri,
+    val uri: String,
     val mimeType: String?
 )

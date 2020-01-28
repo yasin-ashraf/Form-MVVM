@@ -3,9 +3,11 @@ package com.yasin.handzap.ui.newForm
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.yasin.handzap.R
 import com.yasin.handzap.data.entity.Media
 
@@ -20,7 +22,13 @@ class DocumentsAdapter : ListAdapter<Media, UriViewHolder>(UriDiffCallBack()) {
     }
 
     override fun onBindViewHolder(holder: UriViewHolder, position: Int) {
-
+        val media = currentList[position]
+        if(media.mimeType?.contains("image") == true){
+            Picasso.get()
+                .load(media.uri)
+                .fit()
+                .into(holder.itemView.findViewById<ImageView>(R.id.iv_doc))
+        }
     }
 }
 

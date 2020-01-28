@@ -102,7 +102,7 @@ class NewFormFragment : Fragment(){
 
     private fun attachNewFormEventListener() {
         newFormViewModel.createFormEvent.observe(viewLifecycleOwner, EventObserver {
-            newFormViewModel.resetAllValues()
+            activity?.viewModelStore?.clear()
             findNavController().navigateUp()
         })
     }
@@ -264,7 +264,7 @@ class NewFormFragment : Fragment(){
         if(resultCode == Activity.RESULT_OK && requestCode == RC_MEDIA_PICKER) {
             val uri = data?.data ?: Uri.parse("No-Uri")
             val mimeType: String? = activity?.contentResolver?.getType(uri)
-            val media = Media(uri,mimeType)
+            val media = Media(uri.toString(),mimeType)
             newFormViewModel.addFileUri(media)
         }
     }
@@ -287,10 +287,6 @@ class NewFormFragment : Fragment(){
     companion object {
         private const val RC_MEDIA_PICKER: Int = 1002
         private const val REQUEST_PERMISSIONS = 1002
-        private val PERMISSIONS = arrayOf(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA)
     }
 
 
