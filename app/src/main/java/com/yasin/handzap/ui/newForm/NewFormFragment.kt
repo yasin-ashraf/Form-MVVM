@@ -9,12 +9,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.squareup.picasso.Picasso
 import com.yasin.handzap.EventObserver
 import com.yasin.handzap.Handzap
 import com.yasin.handzap.R
@@ -35,9 +37,10 @@ import kotlin.collections.ArrayList
 class NewFormFragment : Fragment(){
 
     private val compositeDisposable : CompositeDisposable by lazy { CompositeDisposable() }
-    private val documentsAdapter : DocumentsAdapter by lazy { DocumentsAdapter() }
+    private lateinit var documentsAdapter : DocumentsAdapter
     private lateinit var viewDataBinding: FragmentCreateNewFormBinding
     @Inject lateinit var factory: ViewModelFactory
+    @Inject lateinit var picassoVideo : Picasso
     private lateinit var newFormViewModel: NewFormViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +76,7 @@ class NewFormFragment : Fragment(){
     }
 
     private fun init() {
+        documentsAdapter = DocumentsAdapter(picassoVideo,requireContext())
         rv_documents.adapter = documentsAdapter
         attachNewFormEventListener()
         et_payment.setOnClickListener {
@@ -257,6 +261,23 @@ class NewFormFragment : Fragment(){
     private fun requestStoragePermission() {
         ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
             REQUEST_PERMISSIONS)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode) {
+            REQUEST_PERMISSIONS -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    pickMediaFromGallery()
+                } else {
+                    Toast.makeText(requireContext(),"Permission denied! Grant Permission to upload media.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

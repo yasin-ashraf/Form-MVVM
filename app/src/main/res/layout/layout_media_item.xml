@@ -10,6 +10,7 @@
         android:layout_height="85dp"
         android:layout_margin="8dp"
         android:elevation="0dp"
+        android:translationZ="0dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,8 +21,15 @@
         <ImageView
             android:id="@+id/iv_doc"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:tint="@color/white" />
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/iv_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_play_icon"/>
 
     </com.google.android.material.card.MaterialCardView>
 

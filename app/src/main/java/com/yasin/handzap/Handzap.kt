@@ -19,7 +19,6 @@ class Handzap : Application() {
         super.onCreate()
         mainComponent = DaggerMainComponent.builder()
             .contextModule(ContextModule(this))
-            .databaseModule(DatabaseModule())
             .build()
     }
 
